@@ -114,8 +114,8 @@ struct BCM2708ArmControl : IODevice {
 	void patchFirmwareData() {
 		volatile firmware_arm_data_t* firmware_data = reinterpret_cast<firmware_arm_data_t*>(ARM_MEMORY_BASE + 32);
 
-		firmware_data->sdram_size = g_RAMSize;
-		firmware_data->vpu_cpuid = g_CPUID;
+		//firmware_data->sdram_size = g_RAMSize;
+		//firmware_data->vpu_cpuid = g_CPUID;
 	}
 
 	void loadInitialCode() {
@@ -178,7 +178,7 @@ struct BCM2708ArmControl : IODevice {
 		 * enable peripheral access, map arm secure bits to axi secure bits 1:1 and
 		 * set the mem size for who knows what reason.
 		 */
-		ARM_CONTROL0 |= 0x008 | ARM_C0_APROTPASS | ARM_C0_SIZ1G | ARM_C0_FULLPERI;
+		ARM_CONTROL0 |= 0x008 | ARM_C0_APROTPASS | ARM_C0_SIZ1G | ARM_C0_FULLPERI | ARM_C0_AARCH64;
 		ARM_CONTROL1 |= ARM_C1_PERSON;
 
 		ARM_IRQ_ENBL3 |= ARM_IE_MAIL;
